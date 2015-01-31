@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Create new post{% endblock %}
+
+{% block extrahead %}
+  {{ form.media }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="form-header">New post</h1>
+  {% include 'blog/post_form.html' with form=form %}
+{% endblock %}

@@ -5,9 +5,9 @@
 {% block content %}
   {% for post in object_list %}
     <div class="post">
-      <div class="date">Published: {{ post.published_date|date:'d.m.Y H:i' }}</div>
       <h1><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h1>
-      <p>{{ post.text|linebreaks }}</p>
+      <div class="date"><small>Published: {{ post.published_date|date:'d.m.Y H:i' }}</small></div>
+      <p>{{ post.text|safe }}</p>
     </div>
   {% endfor %}
 {% endblock %}

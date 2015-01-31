@@ -3,28 +3,52 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %} | at Philipp's blog</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
     <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/icon.ico' %}">
+
+    <script src="//code.jquery.com/jquery-latest.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    {% block extrahead %}{% endblock %}
   </head>
 
   <body>
 
-    <div class="page-header">
-      <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-      <h1><a href="{% url 'post_list' %}">Philipp Bliznuk Blog</a></h1>
-    </div>
-
-    <div class="content container">
-      <div class="row">
-        <div class="col-md-8">
-          {% block content %}{% endblock %}
+    <div class="wrapper">
+      <div class="page-header">
+        <div class="col-md-3 col-md-offset-9">
+          <div class="auth">
+            {% if request.user.is_authenticated %}
+              Wellcome, {{ request.user.username }}!
+              <a href="{% url 'auth_logout' %}"> Logout</a>
+            {% else %}
+              <a href="{% url 'auth_login' %}">Login</a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="row">
+          <h1 class="col-md-6"><a href="{% url 'post_list' %}">Philipp's Blog</a></h1>
+          <div class="col-md-5 col-md-offset-1 right-menu">
+            <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+          </div>
         </div>
       </div>
+
+      <div class="content container">
+        <div class="row">
+          <div class="col-md-8">
+            {% block content %}{% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p align="center">© 2013 | Bliznuk Philipp</p>
     </div>
 
   </body>

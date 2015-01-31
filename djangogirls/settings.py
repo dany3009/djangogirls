@@ -39,8 +39,22 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Forms
+    'tinymce',
+
     # Project apps
     'blog',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "django.core.context_processors.request",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,6 +65,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+AUTHENTICATION_BACKENDS = (
+    'blog.backends.EmailModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 ROOT_URLCONF = 'djangogirls.urls'
 
@@ -98,6 +118,26 @@ ALLOWED_HOSTS = ['*']
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+LOGIN_URL = 'auth_login'
+
+LOGIN_REDIRECT_URL = 'post_list'
+
+LOGOUT_REDIRECT_URL = 'post_list'
+
+# tinyMCE
+
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce", "tinymce.min.js")
+
+TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, "tinymce")
+
+TINYMCE_DEFAULT_CONFIG = {
+  'theme': "simple",
+  'plugins': "link",
+  'relative_urls': False,
+  'invalid_elements': "script,style",
+  'invalid_styles': 'position'
+}
 
 try:
     from .local_settings import *
